@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/angular.js/1.7.0/angular.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body ng-controller="personCtrl">
+    <ul>
+        <li ng-repeat="listVed in listVeds" ng-init="outerIndex = $index">
+            <div class="row">
+                <div class="col-xs-3"><input type="text" class="form-control" ng-model="listVeds[outerIndex].firstName"
+                        placeholder="Employee No"></div>
+            </div>
+            <div>
+                <label class="checkbox-inline" ng-repeat="item in condtions  track by $index"
+                    ng-init="innerIndex = $index">
+                    <input type="checkbox" name="{{item.code}}" ng-checked="listVeds[outerIndex].orderDetail[item.code]"
+                        ng-change="onChange(outerIndex,item.code)"
+                        ng-model="listVeds[outerIndex].orderDetail[item.code]">{{item.value}}
+                </label>
+            </div>
+            <textarea placeholder="请输入" ng-model="listVeds[outerIndex].orderDetail.ods"
+                ng-if="listVeds[outerIndex].orderDetail.light == 1"></textarea>
+        </li>
+    </ul>
+    <script>
+        Array.prototype.indexOf = function (val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] == val) return i;
+            }
+            return -1;
+        };
+        Array.prototype.remove = function (val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
+
+        var app = angular.module('myApp', []);
+        app.controller('personCtrl', function ($scope) {
+            $scope.condtions = [{ code: "light", value: "轻度" }, { code: "middle", value: "中度" }, { code: "high", value: "重度" }];
+            $scope.listVeds = [
+                { id: "10", firstName: "Brett1", orderDetail: {}, col: [] },
+                { id: "21", firstName: "Brett2", orderDetail: {}, col: [] },
+                { id: "30", firstName: "Brett2", orderDetail: {}, col: [] },
+                { id: "44", firstName: "Brett2", orderDetail: {}, col: [] },
+                { id: "59", firstName: "Brett2", orderDetail: {}, col: [] }
+            ];
+            $scope.onChange = function (index, code) {
+                if ($scope.listVeds[index].orderDetail[code]) {
+                    $scope.listVeds[index].col.push(code);
+                } else {
+                    $scope.listVeds[index].col.remove(code);
+                }
+
+                console.log($scope.listVeds);
+            }
+        });
+    </script>
+</body>
+
+</html>
