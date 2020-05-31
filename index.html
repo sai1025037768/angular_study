@@ -24,7 +24,9 @@
                 </label>
             </div>
             <textarea placeholder="请输入" ng-model="listVeds[outerIndex].orderDetail.ods"
-                ng-if="listVeds[outerIndex].orderDetail.light == 1"></textarea>
+                ng-if="listVeds[outerIndex].orderDetail.light"></textarea>
+            <textarea placeholder="请输入" ng-model="listVeds[outerIndex].orderDetail.ods"
+                ng-if="listVeds[outerIndex].orderDetail.middle"></textarea>
         </li>
     </ul>
     <script>
@@ -47,9 +49,9 @@
             $scope.listVeds = [
                 { id: "10", firstName: "Brett1", orderDetail: {}, col: [] },
                 { id: "21", firstName: "Brett2", orderDetail: {}, col: [] },
-                { id: "30", firstName: "Brett2", orderDetail: {}, col: [] },
-                { id: "44", firstName: "Brett2", orderDetail: {}, col: [] },
-                { id: "59", firstName: "Brett2", orderDetail: {}, col: [] }
+                { id: "30", firstName: "Brett3", orderDetail: {}, col: [] },
+                { id: "44", firstName: "Brett4", orderDetail: {}, col: [] },
+                { id: "59", firstName: "Brett5", orderDetail: {}, col: [] }
             ];
             $scope.onChange = function (index, code) {
                 if ($scope.listVeds[index].orderDetail[code]) {
@@ -57,7 +59,7 @@
                 } else {
                     $scope.listVeds[index].col.remove(code);
                 }
-
+                console.log($scope.listVeds[index].col.join(","));
                 console.log($scope.listVeds);
             }
         });
